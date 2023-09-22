@@ -18,10 +18,10 @@ Location::Location(std::string n, std::string desc):name(n),description(desc){
     }
 }
 
-std::map<string, Location> getLocations(){
+std::map<string, Location> Location::getLocations(){
     return neighbors;
 }
-void add_location(string direction, Location loca){
+void Location::add_location(string direction, Location loca){
     if(direction.empty()){
         throw std::invalid_argument("Hey man... we use the compass here");
     }
@@ -32,29 +32,29 @@ void add_location(string direction, Location loca){
     neighbors[direction] = loca;
 }
 
-void add_npc(NPC npc){
+void Location::add_npc(NPC npc){
     locNpc.push_back(npc);
 }
-std::vector<NPC> get_npcs(){
+std::vector<NPC> Location::get_npcs(){
     return locNpc;
 }
 
-void add_item(Item item){
+void Location::add_item(Item item){
     locItems.push_back(item);
 }
 
-std::vector<Item> get_items(){
+std::vector<Item> Location::get_items(){
     return locItems;
 }
 
-void set_visited(){
+void Location::set_visited(){
     visited = true;
 }
 
-bool get_visited(){
+bool Location::get_visited(){
     return visited;
 }
 
-friend std::ostream& operator<<(std::ostream& os, const Location& obj){
+std::ostream& operator<<(std::ostream& os, const Location& obj){
     os << obj.name << " - " << obj.description << '\n\n' << "After scanning the room, you see the following NPC's \n" << "  - ";
 }

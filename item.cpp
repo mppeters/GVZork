@@ -27,8 +27,9 @@ using namespace std;
     }
 
 
-int main(){
+/*int main(){
     Item sword("harold","Harold the mighty sword",0,10);
 
     std::cout << sword;
 }
+*/

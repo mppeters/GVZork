@@ -22,9 +22,10 @@ using namespace std;
     }
 
     
-
+//dont think this is right
     std::string NPC::getMsg(){
         return msgvec[msgnum];
+        msgnum = msgnum + 1;
     }
     
 

@@ -16,5 +16,7 @@ class NPC{
     NPC(std::string n, std::string d);
     std::string getName();
     std::string getDescription();
+    std::string getMsg();
+    friend std::ostream& operator<<(std::ostream& os, const NPC& obj);
 };
 #endif
