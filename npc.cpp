@@ -2,9 +2,6 @@
 #include <vector>
 #include <string>
 #include "npc.hpp"
-using namespace std;
-
-
 
     NPC::NPC(std::string n, std::string d) : name(n), description(d){
         if(n.empty()){

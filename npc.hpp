@@ -1,5 +1,4 @@
-#include "item.cpp"
-#include "location.cpp"
+#include "item.hpp"
 #include <string>
 #include<vector>
 
@@ -10,7 +9,7 @@ class NPC{
     std::string name;
     std::string description;
     int msgnum;
-    vector<std::string> msgvec;
+    std::vector<std::string> msgvec;
 
     public:
     NPC(std::string n, std::string d);

@@ -1,9 +1,6 @@
 #include <iostream>
 #include "item.hpp"
 
-using namespace std;
-
-
     Item::Item(std::string n, std::string desc, int cal, float w) : name(n), description(desc), calories(cal), weight(w){
         if(n.empty()){
             throw std::invalid_argument("Name cannot be blank");

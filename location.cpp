@@ -1,13 +1,8 @@
 #include <iostream>
 #include <map>
-#include "npc.cpp"
-#include "item.cpp"
 #include "location.hpp"
-
-using namespace std;
-
-
-
+#include "npc.hpp"
+#include "item.hpp"
 
 Location::Location(std::string n, std::string desc):name(n),description(desc){
     if(n.empty()){
@@ -56,5 +51,6 @@ bool Location::get_visited(){
 }
 
 std::ostream& operator<<(std::ostream& os, const Location& obj){
-    os << obj.name << " - " << obj.description << '\n\n' << "After scanning the room, you see the following NPC's \n" << "  - ";
+    os << obj.name << " - " << obj.description << '\n\n' << "After scanning the room, you see the following NPC's \n" << "  - " << 
+    for(auto i = locNpc.begin(); i != locNpc.end(); i++){os << *i} <<;
 }
