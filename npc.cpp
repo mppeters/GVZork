@@ -21,8 +21,7 @@
     
 //dont think this is right
     std::string NPC::getMsg(){
-        return msgvec[msgnum];
-        msgnum = msgnum + 1;
+        return msgvec[msgnum++];
     }
     
 
@@ -31,3 +30,9 @@
         return os;
     }
 
+/*int main(){
+    NPC steven("bob","just bob");
+    std::cout << steven;
+
+}
+*/

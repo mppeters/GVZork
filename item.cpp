@@ -1,5 +1,6 @@
 #include <iostream>
 #include "item.hpp"
+#include "location.hpp"
 
     Item::Item(std::string n, std::string desc, int cal, float w) : name(n), description(desc), calories(cal), weight(w){
         if(n.empty()){
