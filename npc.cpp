@@ -19,9 +19,15 @@
     }
 
     
-//dont think this is right
     std::string NPC::getMsg(){
+        if(msgnum == msgvec.size()){
+            msgnum = 0;
+        }
         return msgvec[msgnum++];
+    }
+
+    void NPC::addMsg(std::vector<std::string> m){
+        msgvec = m;
     }
     
 

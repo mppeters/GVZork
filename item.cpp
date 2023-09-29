@@ -24,6 +24,10 @@
         return os;
     }
 
+    std::string Item::getName(){
+        return name;
+    }
+
 
 /*int main(){
     Item sword("harold","Harold the mighty sword",0,10);
