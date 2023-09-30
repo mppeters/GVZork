@@ -3,14 +3,18 @@
 #include "location.hpp"
 #include <map>
 #include <vector>
+#include <functional>
+#include <sstream>
+
+
 
 #ifndef game_h
 #define game_h
 
 class Game{
     private:
-        const int max_weight;
-        const int required_cals;
+        int max_weight;
+        int required_cals;
         int total_cal;
         int current_weight;
         std::vector<Item> player_items;
@@ -25,6 +29,8 @@ class Game{
         Game();
         void create_world();
         Location random_location();
+        int get_required_cals();
+        void set_required_cals(int cals);
         void play();
         void show_help();
         void talk(std::vector<std::string> target);
@@ -35,7 +41,8 @@ class Game{
         void show_items(std::vector<std::string> target);
         void quit(std::vector<std::string> target);
         void addtoworld(Location& loc);
-        void play();
+        void look();
+        void set_max_weight(int weight);
         std::vector<Location> getworld();
         std::map<std::string, std::function<void(std::vector<std::string>)>> setup_commands();
         

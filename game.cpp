@@ -41,6 +41,10 @@ Location Game::random_location(){
 }
 
 void Game::go(std::vector<std::string> target){
+    if(current_weight > max_weight){
+        std::cout << "You're too fat to move \n";
+        return;
+    }
     current_location.set_visited();
     current_location = current_location.getLocations()[target[0]];
 }
@@ -62,7 +66,7 @@ void Game::meet(std::vector<std::string> target){
     std::string input = std::accumulate(target.begin(), target.end(), std::string(" "));
     for (NPC& npc : current_location.get_npcs()) {
         if (npc.getName() == input) {
-            std::cout << "You have met " << npc.getName() << '\n';
+            std::cout << npc.getDescription() << '\n';
             found = true;
             break;
         }
@@ -77,6 +81,7 @@ void Game::take(std::vector<std::string> target){
         if(i.getName() == input){
             player_items.push_back(i);
             current_location.get_items().erase(std::remove(current_location.get_items().begin(), current_location.get_items().end(), i), current_location.get_items().end());
+            current_weight += i.getWeight();
             break;
         }
     }
@@ -87,9 +92,56 @@ void Game::give(std::vector<std::string> target){
         if(i.getName() == input){
             current_location.get_items().push_back(i);
             player_items.erase(std::remove(player_items.begin(), player_items.end(), i), player_items.end());
+            current_weight -= i.getWeight();
+            if(current_location.get_name() == "Woods"){
+                if(i.getCalories() == 0){
+                    current_location = random_location();
+                }
+                else{
+                    required_cals -= i.getCalories();
+                }
+            }
             break;
         }
     }
+    
+}
+
+void Game::show_items(std::vector<std::string> target){
+    std::cout << "Items in your inventory: \n";
+    for(Item& i : player_items){
+        std::cout << i << "\n";
+    }
+    std::cout << current_weight;
+}
+
+void Game::look(){
+    std::cout << current_location;
+    if(current_location.get_items().size() > 0){
+    std::cout << "Items in this location: \n";
+    for(Item& i : current_location.get_items()){
+        std::cout << i << "\n";
+    }
+    }
+    else{
+        std::cout << "No items in this location \n";
+    }
+
+    if(current_location.get_npcs().size() > 0){
+    std::cout << "NPC's in this location: \n";
+    for(NPC& i : current_location.get_npcs()){
+        std::cout << i << "\n";
+    }
+    }
+    else{
+        std::cout << "You're alone \n";
+    }
+
+}
+
+void Game::quit(std::vector<std::string> target){
+    std::cout << "Game has been quit\n";
+    in_progress = false;
 }
 
 
@@ -97,9 +149,25 @@ void Game::addtoworld(Location& loc){
     world_locations.push_back(loc);
 }
 
+int Game::get_required_cals(){
+    return required_cals;
+}
+
+void Game::set_required_cals(int cals){
+    required_cals = cals;
+}
+
+void Game::set_max_weight(int weight){
+    max_weight = weight;
+}
+
+
+
 
 void create_world(){
 Game game;
+game.set_required_cals(500);
+game.set_max_weight(30);
 Location clocktower;
 game.addtoworld(clocktower);
 clocktower.set_name("Clocktower");
@@ -172,6 +240,14 @@ Item phone("Phone","iPhone 12 Pro Max to shove in your face everywhere you walk"
 //kirkhof will have panda express
 kirkhof.add_item(pandaexpress);
 mackinac.add_item(gluestick);
+mackinac.add_item(metrxbar);
+zumberge.add_item(stringcheese);
+kleiner.add_item(pizza);
+gym.add_item(waterbottle);
+gym.add_item(calculator);
+Lake_superior.add_item(phone);
+clocktower.add_item(macbookpro);
+library.add_item(pencil);
 
 
 
@@ -224,7 +300,8 @@ void Game::play(){
     }
 }
 
-
-//Finish adding items
-//Finish Elf mechanics
-//Finish NPC message vectors
+int main(){
+    create_world();
+    Game game;
+    game.play();
+}

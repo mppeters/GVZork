@@ -2,8 +2,8 @@
 #include "npc.hpp"
 #include "item.hpp"
 
-#ifndef location_h 
-#define locaation_h
+#ifndef LOCATION_HPP
+#define LOCATION_HPP
 
 class Location{
     private:
@@ -25,7 +25,7 @@ class Location{
         bool get_visited();
         void set_name(std::string n);
         void set_desc(std::string desc);
-        
+        std:: string get_name();
         friend std::ostream& operator<<(std::ostream& os, const Location& obj);
 };
 

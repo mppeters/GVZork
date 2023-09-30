@@ -51,6 +51,11 @@ void Location::set_desc(std::string desc){
     description = desc;
 }
 
+std::string Location::get_name(){
+    return name;
+}
+
+
 std::ostream& operator<<(std::ostream& os, const Location& obj){
     os << obj.name << " - " << obj.description << '\n' << "After scanning the room, you see the following NPC's \n"; 
     for(const NPC& i : obj.locNpc){os <<" - "<< i << "\n";} os << "You also see some items \n";

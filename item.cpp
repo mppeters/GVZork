@@ -28,6 +28,14 @@
         return name;
     }
 
+    int Item::getCalories(){
+        return calories;
+    }
+
+    float Item::getWeight(){
+        return weight;
+    }
+
 
 /*int main(){
     Item sword("harold","Harold the mighty sword",0,10);
