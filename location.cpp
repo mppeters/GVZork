@@ -64,11 +64,11 @@ std::ostream& operator<<(std::ostream& os, const Location& obj){
         os << " - " << i.first << " - " << i.second.name;
         if (i.second.visited == true)
         { os << " (Visited)";}
-        
+        os << "\n";
         ;};
     return os;
 }
-int main(){
+/*int main(){
     Location test;
     test.set_name("Test AHHH");
     test.set_desc("What");
@@ -82,4 +82,4 @@ int main(){
     test.add_item(Sword);
 
     std::cout << test;
-}
+}*/

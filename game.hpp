@@ -26,7 +26,6 @@ class Game{
 
 
     public:
-        Game();
         void create_world();
         Location random_location();
         int get_required_cals();
