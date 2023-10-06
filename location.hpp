@@ -20,6 +20,7 @@ class Location{
         std::map<std::string, Location> getLocations();
         std::vector<NPC> get_npcs();
         void add_item(Item item);
+        void remove_item(Item item);
         std::vector<Item> get_items();
         void set_visited();
         bool get_visited();

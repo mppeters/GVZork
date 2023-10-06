@@ -12,8 +12,16 @@
 
 void Game::talk(std::vector<std::string> target){
     bool found = false;
-    std::string input = std::accumulate(target.begin(), target.end(), std::string(" "));
+    //std::string input = std::accumulate(target.begin(), target.end(), std::string(" "));
+     std::string input = std::accumulate(
+        target.begin(), target.end(), std::string(""),
+        [](const std::string& a, const std::string& b) {
+            return a + " " + b;
+        }
+    );
+    std::cout << input << '\n';
     for (NPC& npc : current_location.get_npcs()) {
+        std::cout << npc.getName() << '\n';
         if (npc.getName() == input) {
             std::cout << npc.getMsg() << '\n';
             found = true;
@@ -48,36 +56,10 @@ void Game::go(std::vector<std::string> target) {
         std::cout << "You're too fat to move\n";
         return;
     }
-
     current_location.set_visited();
-    
     // Join the elements in the target vector into a single string
-    std::string input = std::accumulate(target.begin(), target.end(), std::string(" "));
-    
-    // Check if the input string exists in the current location's map of locations
-    auto it = current_location.getLocations().find(input);
-    
-    if (it == current_location.getLocations().end()) {
-        std::cout << "You can't go that way\n";
-        return;
-    } else {
-        // Find the index of the location in the world_locations vector
-        int index = -1; // Initialize to -1, indicating not found
-        Location targetLocation = it->second;
-        
-        for (int i = 0; i < world_locations.size(); ++i) {
-            if (world_locations[i].get_name() == targetLocation.get_name()) {
-                index = i; // Location found, set the index
-                break; // No need to continue searching
-            }
-        }
-        
-        if (index != -1) {
-            current_location = world_locations[index];
-        } else {
-            std::cout << "Location not found in world_locations vector\n";
-        }
-    }
+    //std::string input = std::accumulate(target.begin(), target.end(), std::string(" "));
+    current_location = current_location.getLocations()[target[0]];
 }
 
 
@@ -112,32 +94,18 @@ void Game::meet(std::vector<std::string> target){
         std::cout << "NPC not found in this location \n";
     }
 }
-/*void Game::take(std::vector<std::string> target){
-    std::string input = std::accumulate(target.begin(), target.end(), std::string(" "));
+void Game::take(std::vector<std::string> target){
+    std::string input = std::accumulate(target.begin(), target.end(), std::string(),
+        [](const std::string& a, const std::string& b) { return a + " " + b; });
     for(Item& i : current_location.get_items()){
         if(i.getName() == input){
             player_items.push_back(i);
-            current_location.get_items().erase(std::remove(current_location.get_items().begin(), current_location.get_items().end(), i), current_location.get_items().end());
             current_weight += i.getWeight();
+            current_location.remove_item(i);
             break;
         }
     }
     
-}*/
-
-void Game::take(std::vector<std::string> target) {
-    std::string input = std::accumulate(target.begin(), target.end(), std::string(""));
-    auto it = std::find_if(current_location.get_items().begin(), current_location.get_items().end(),
-        [&](Item& i) { return i.getName() == input; });
-    if (it != current_location.get_items().end()) {
-        player_items.push_back(*it);
-        current_location.get_items().erase(it);
-        current_weight += it->getWeight();
-    } else {
-        std::cout << "Item not found in this location\n";
-    }
-
-
 }
 
 
@@ -235,21 +203,7 @@ void Game::create_world(){
     addtoworld(Lake_superior);
     Lake_superior.set_name("Lake Superior Hall");
     Lake_superior.set_desc("What a great place to relax");
-    clocktower.add_location("west", library);
-    clocktower.add_location("south", kirkhof);
-    clocktower.add_location("north", mackinac);
-    kirkhof.add_location("north", clocktower);
-    kirkhof.add_location("east", zumberge);
-    kirkhof.add_location("west", library);
-    zumberge.add_location("west", kirkhof);
-    zumberge.add_location("north", mackinac);
-    zumberge.add_location("east",Lake_superior);
-    Lake_superior.add_location("west", zumberge);
-    mackinac.add_location("south", clocktower);
-    mackinac.add_location("west", gym);
-    mackinac.add_location("north", kleiner);
-    gym.add_location("east", mackinac);
-    gym.add_location("south", library);
+ 
 
     Location woods;
     addtoworld(woods);
@@ -296,11 +250,35 @@ void Game::create_world(){
     NPC Robert("Robert","Just a weird dude named Robert");
     NPC Elf("Elf", "Hungry, hungry, hungry");
 
+
+    std::vector<std::string> Bowmsg;
+    Bowmsg.push_back("Hello, I am the ghost of Dr. Bowman");
+    Bowmsg.push_back("I am here to tell you that you are trapped in GVZork");
+    Bowmsg.push_back("I finally escaped this land though");
+    Bowmsg.push_back("Build me an adder");
+    GhostOfBowman.addMsg(Bowmsg);
+
     mackinac.add_npc(Rahat);
     zumberge.add_npc(Pres);
     clocktower.add_npc(GhostOfBowman);
     kirkhof.add_npc(Seth);
     kleiner.add_npc(Robert);
+
+    clocktower.add_location("west", library);
+    clocktower.add_location("south", kirkhof);
+    clocktower.add_location("north", mackinac);
+    kirkhof.add_location("north", clocktower);
+    kirkhof.add_location("east", zumberge);
+    kirkhof.add_location("west", library);
+    zumberge.add_location("west", kirkhof);
+    zumberge.add_location("north", mackinac);
+    zumberge.add_location("east",Lake_superior);
+    Lake_superior.add_location("west", zumberge);
+    mackinac.add_location("south", clocktower);
+    mackinac.add_location("west", gym);
+    mackinac.add_location("north", kleiner);
+    gym.add_location("east", mackinac);
+    gym.add_location("south", library);
 
     current_location = clocktower;
 

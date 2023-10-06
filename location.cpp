@@ -31,6 +31,14 @@ void Location::add_item(Item item){
     locItems.push_back(item);
 }
 
+void Location::remove_item(Item item){
+    auto it = std::find_if(locItems.begin(), locItems.end(),
+        [&](Item& i) { return i.getName() == item.getName(); });
+    if (it != locItems.end()) {
+        locItems.erase(it);
+    }
+}
+
 std::vector<Item> Location::get_items(){
     return locItems;
 }
@@ -64,7 +72,7 @@ std::ostream& operator<<(std::ostream& os, const Location& obj){
         os << " - " << i.first << " - " << i.second.name;
         if (i.second.visited == true)
         { os << " (Visited)";}
-        os << "\n";
+        os << "\n"
         ;};
     return os;
 }
