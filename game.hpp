@@ -1,3 +1,4 @@
+//Coded by Copilot, edited by human
 #include "item.hpp"
 #include "npc.hpp"
 #include "location.hpp"

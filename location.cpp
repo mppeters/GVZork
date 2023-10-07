@@ -1,3 +1,4 @@
+//Coded by Copilot, edited by human
 #include <iostream>
 #include <map>
 #include "location.hpp"

@@ -1,5 +1,7 @@
+//Coded by Copilot, edited by human
 #ifndef item_h
 #define item_h
+
 
 // Header guard to prevent multiple inclusion of this file
 

@@ -1,3 +1,4 @@
+//Coded by Copilot, edited by human
 #include <map>
 #include "npc.hpp"
 #include "item.hpp"
