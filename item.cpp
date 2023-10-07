@@ -2,6 +2,7 @@
 #include "item.hpp"
 #include "location.hpp"
 
+    //Item constructor, creates an item with a name, description, calories, and weight
     Item::Item(std::string n, std::string desc, int cal, float w) : name(n), description(desc), calories(cal), weight(w){
         if(n.empty()){
             throw std::invalid_argument("Name cannot be blank");
@@ -18,20 +19,23 @@
     }
 
     
-
+    //Overloading the << operator to print the Item object in the desired format
     std::ostream& operator<<(std::ostream& os, const Item& obj){
         os << "Name: " << obj.name << " ("<< obj.calories<<" calories)"<<" - "<< obj.weight<<" lb - " << obj.description<<"\n";
         return os;
     }
 
+    //Getter function for the name
     std::string Item::getName(){
         return name;
     }
 
+    //Getter function for the calories of an Item
     int Item::getCalories(){
         return calories;
     }
 
+    //Getter function for the weight of an Item
     float Item::getWeight(){
         return weight;
     }
